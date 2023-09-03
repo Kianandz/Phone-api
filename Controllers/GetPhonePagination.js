@@ -1,8 +1,8 @@
 const db = require("../db");
 
 const GetPhonePagination = (req, res) => {
-  const page = req.query.page || 1; // Halaman yang diminta
-  const itemsPerPage = 2; // Jumlah item per halaman
+  const page = req.query.page || 1;
+  const itemsPerPage = 2; 
   const startIndex = (page - 1) * itemsPerPage;
 
   const query = `
