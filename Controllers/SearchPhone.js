@@ -3,7 +3,7 @@ const db = require("../db");
 const SearchPhone = (req, res) => {
   const searchQuery = req.query.search;
   const query = "SELECT * FROM phone WHERE name LIKE ? OR brands LIKE ?";
-  const searchValue = `%${searchQuery}%`; // Nilai pencarian yang akan dicocokkan dengan baik kolom "name" maupun "brands"
+  const searchValue = `%${searchQuery}%`;
 
   db.query(query, [searchValue, searchValue], (err, results) => {
     if (err) {
