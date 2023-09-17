@@ -14,8 +14,8 @@ app.use(cors());
 app.use("/api", ApiRoutes);
 
 app.use(
-  "/api/phoneImage",
-  express.static(path.join(__dirname, "./phoneImage"))
+  "/api/ImageData",
+  express.static(path.join(__dirname, "./ImageData"))
 );
 
 app.get("/api", (req, res) => {

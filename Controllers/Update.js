@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     cb(null, "./ImageData"); // Menyimpan file di folder
   },
   filename: function (req, file, cb) {
-    // Menyimpan file dengan nama yang unik 
+    // Menyimpan file dengan nama yang unik
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(
       null,
@@ -17,9 +17,9 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const update = multer({ storage: storage });
 
-const PostPhone = (req, res) => {
+const UpdatePhone = (req, res) => {
   const {
     name,
     brands,
@@ -53,8 +53,10 @@ const PostPhone = (req, res) => {
   } = req.body;
   const phone_image = req.file.filename; // Mengambil nama file dari req.file
 
+  const phoneId = req.params.id; // Anda perlu mendapatkan ID telepon yang ingin diupdate dari URL atau req.params
+
   db.query(
-    "INSERT INTO phone (name, brands, phone_image, phone_network, phone_sim, phone_sim_type, material, dimensions, weight, color, resolution, screen_size, technology, os, os_version, chipset, cpu, gpu, ram, storage, storage_type, main_camera, selfie_camera, nfc, usb, bluetooth, gps, wifi, battery, battery_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "UPDATE phone SET name=?, brands=?, phone_image=?, phone_network=?, phone_sim=?, phone_sim_type=?, material=?, dimensions=?, weight=?, color=?, resolution=?, screen_size=?, technology=?, os=?, os_version=?, chipset=?, cpu=?, gpu=?, ram=?, storage=?, storage_type=?, main_camera=?, selfie_camera=?, nfc=?, usb=?, bluetooth=?, gps=?, wifi=?, battery=?, battery_type=? WHERE id=?",
     [
       name,
       brands,
@@ -86,18 +88,19 @@ const PostPhone = (req, res) => {
       wifi,
       battery,
       battery_type,
+      phoneId,
     ],
     (error, results) => {
       if (error) {
-        console.error("Error menambahkan data ke database: ", error);
+        console.error("Error mengupdate data ke database: ", error);
         res
           .status(500)
-          .send("Terjadi kesalahan dalam menambahkan data ke database");
+          .send("Terjadi kesalahan dalam mengupdate data ke database");
       } else {
-        res.status(201).send("Data telah berhasil ditambahkan");
+        res.status(200).send("Data telah berhasil diupdate");
       }
     }
   );
 };
 
-module.exports = { PostPhone, upload }; // Menyertakan upload middleware
+module.exports = { UpdatePhone, update };
