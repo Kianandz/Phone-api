@@ -3,7 +3,17 @@
 This api using express and database mysql.
 Check the required libraries are in the package.json file in "dependencies"
 
-Additional information
- - install nodemon to run App.js Quickly
+Require
+ - Node JS
+
+Install
+ - download / clone this repo
+ - change directory to this folder
+ - open terminal
+ - run command "npm install -g nodemon"
+ - npm install
+
+Running
+ - npm start
 
 I'm just getting started on this, sorry if this bad
